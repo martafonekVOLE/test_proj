@@ -8,7 +8,7 @@ use Illuminate\Http\Client\Factory;
 
 class StockService
 {
-    private const API_URL = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=%s&apikey=%s";
+    private const API_URL = "https://yahoo-finance15.p.rapidapi.com/api/v1/markets/quote?ticker=%s";
 
     /**
      * @param \Illuminate\Http\Client\Factory $factory
@@ -29,7 +29,7 @@ class StockService
         $url = sprintf(self::API_URL, $ticker, env('ALPHA_VANTAGE_API_KEY'));
 
         $response = $this->factory->get($url);
-
+dd($response->json());
         if($response->failed()) {
             throw new \Exception('Unable to retrieve stock price: ' . $ticker);
         }
