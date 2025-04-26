@@ -43,9 +43,11 @@ class AirportService
             'longitude' => $parsedResponse['longitude'],
         ];
 
-        return [
-            'airport_data' => $airportData,
-            'weather' => $weather,
-        ];
+        return $weather;
+
+//        return [
+//            'airport_data' => $airportData,
+//            'weather' => $weather,
+//        ];
     }
 }

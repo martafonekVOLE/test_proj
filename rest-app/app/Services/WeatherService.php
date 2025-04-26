@@ -53,11 +53,15 @@ class WeatherService
         }
 
         return [
-            'measured_at' => CarbonImmutable::parse($response['current_weather']['time'])->format('Y-m-d H:i:s'),
-            'day_time' => $response['current_weather']['is_day'] ? 'day' : 'night',
-            'temperature' => $response['current_weather']['temperature'] . $response['current_weather_units']['temperature'],
-            'wind' => 'speed: ' . $response['current_weather']['windspeed'] . $response['current_weather_units']['windspeed'] . ', direction: ' . $response['current_weather']['winddirection'] . '°',
-            'weather_condition' => $weather,
+            'temperature' => $response['current_weather']['temperature']
         ];
+
+//        return [
+//            'measured_at' => CarbonImmutable::parse($response['current_weather']['time'])->format('Y-m-d H:i:s'),
+//            'day_time' => $response['current_weather']['is_day'] ? 'day' : 'night',
+//            'temperature' => $response['current_weather']['temperature'] . $response['current_weather_units']['temperature'],
+//            'wind' => 'speed: ' . $response['current_weather']['windspeed'] . $response['current_weather_units']['windspeed'] . ', direction: ' . $response['current_weather']['winddirection'] . '°',
+//            'weather_condition' => $weather,
+//        ];
     }
 }

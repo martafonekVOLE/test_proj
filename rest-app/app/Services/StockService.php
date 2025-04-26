@@ -44,9 +44,9 @@ class StockService
     private function parseStockPrice(array $response): array
     {
         return [
-            'ticker' => $response['01. symbol'],
+//            'ticker' => $response['01. symbol'],
             'price' => $response['05. price'],
-            'retrieved_at' => CarbonImmutable::now()->format('Y-m-d H:i:s'),
+//            'retrieved_at' => CarbonImmutable::now()->format('Y-m-d H:i:s'),
         ];
     }
 }
