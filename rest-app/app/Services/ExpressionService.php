@@ -23,7 +23,7 @@ class ExpressionService
         return [
 //            'to_eval' => $expression,
 //            'evaluation' => self::safeEval($expression),
-            self::safeEval($expression),
+            (float) self::safeEval($expression),
         ];
     }
 

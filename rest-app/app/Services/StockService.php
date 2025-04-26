@@ -47,7 +47,7 @@ class StockService
 //            'ticker' => $response['01. symbol'],
 //            'price' => $response['05. price'],
 //            'retrieved_at' => CarbonImmutable::now()->format('Y-m-d H:i:s'),
-            $response['05. price']
+            (float) $response['05. price']
         ];
     }
 }
