@@ -31,16 +31,16 @@ class ServiceController extends Controller
      * @param \App\Services\AirportService $airportService
      * @param \App\Services\StockService $stockService
      * @param \App\Services\ExpressionService $expressionService
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      * @throws \Illuminate\Http\Client\ConnectionException
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function service(Request $request, AirportService $airportService, StockService $stockService, ExpressionService $expressionService): Response
+    public function service(Request $request, AirportService $airportService, StockService $stockService, ExpressionService $expressionService): \Illuminate\Http\JsonResponse
     {
 
         // If none of supported query parameters were found, return error
         if(!$request->hasAny([self::ATTR_AIRPORT_QUERY, self::ATTR_STOCK_QUERY, self::ATTR_EVAL_QUERY])) {
-            return response('Invalid request', 400);
+            return response()->json('Invalid request', 400);
         }
 
         $this->validate($request);
@@ -48,20 +48,20 @@ class ServiceController extends Controller
         $airport = $request->input(self::ATTR_AIRPORT_QUERY);
         if($airport !== null) {
             // Now airport exists and has been validated
-            return response($airportService->getAirportTemperature($airport), 200);
+            return response()->json($airportService->getAirportTemperature($airport), 200);
         }
 
         $stock = $request->input(self::ATTR_STOCK_QUERY);
         if($stock !== null) {
-            return response($stockService->getStockPrice($stock), 200);
+            return response()->json($stockService->getStockPrice($stock), 200);
         }
 
         $eval = $request->input(self::ATTR_EVAL_QUERY);
         if($eval !== null) {
-            return response($expressionService->evaluate($eval), 200);
+            return response()->json($expressionService->evaluate($eval), 200);
         }
 
-        return response('', 200);
+        return response()->json('', 200);
     }
 
     /**
