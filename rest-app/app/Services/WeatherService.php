@@ -53,7 +53,7 @@ class WeatherService
         }
 
         return [
-            'temperature' => $response['current_weather']['temperature']
+            $response['current_weather']['temperature']
         ];
 
 //        return [
