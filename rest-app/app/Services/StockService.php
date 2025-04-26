@@ -20,11 +20,11 @@ class StockService
 
     /**
      * @param string $ticker
-     * @return array
+     * @return float
      * @throws \Illuminate\Http\Client\ConnectionException
      * @throws \Exception
      */
-    public function getStockPrice(string $ticker): array
+    public function getStockPrice(string $ticker): float
     {
         $url = sprintf(self::API_URL, $ticker, env('ALPHA_VANTAGE_API_KEY'));
 
@@ -39,15 +39,18 @@ class StockService
 
     /**
      * @param array $response
-     * @return array
+     * @return float
      */
-    private function parseStockPrice(array $response): array
+    private function parseStockPrice(array $response): float
     {
-        return [
+
+        return (float) $response['05. price'];
+
+//        return [
 //            'ticker' => $response['01. symbol'],
 //            'price' => $response['05. price'],
 //            'retrieved_at' => CarbonImmutable::now()->format('Y-m-d H:i:s'),
-            (float) $response['05. price']
-        ];
+//            (float) $response['05. price']
+//        ];
     }
 }

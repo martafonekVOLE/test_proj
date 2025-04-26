@@ -20,11 +20,12 @@ class AirportService
 
     /**
      * @param string $airport
-     * @return array
+     * @return float
      * @throws \Illuminate\Http\Client\ConnectionException
      * @throws \Exception
      */
-    public function getAirportTemperature(string $airport): array {
+    public function getAirportTemperature(string $airport): float
+    {
         $url = sprintf(self::API_URL, $airport);
 
         $response = $this->factory->get($url);

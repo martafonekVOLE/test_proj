@@ -10,9 +10,9 @@ class ExpressionService
 {
     /**
      * @param string $expression
-     * @return array
+     * @return float
      */
-    public static function evaluate(string $expression): array
+    public static function evaluate(string $expression): float
     {
         $expression = preg_replace('/\s+/', '', $expression);
 
@@ -20,11 +20,13 @@ class ExpressionService
             throw new \InvalidArgumentException('Neplatný výraz. Povoleny jsou pouze čísla, operátory +-*/ a závorky.');
         }
 
-        return [
+        return self::safeEval($expression);
+
+//        return [
 //            'to_eval' => $expression,
 //            'evaluation' => self::safeEval($expression),
-            (float) self::safeEval($expression),
-        ];
+//            (float) self::safeEval($expression),
+//        ];
     }
 
     /**

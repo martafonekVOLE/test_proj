@@ -21,11 +21,11 @@ class WeatherService
     /**
      * @param string $lat
      * @param string $lon
-     * @return array
+     * @return float
      * @throws \Illuminate\Http\Client\ConnectionException
      * @throws \Exception
      */
-    public function getWeatherFor(string $lat, string $lon): array
+    public function getWeatherFor(string $lat, string $lon): float
     {
         $response = $this->factory->get(self::API_URL, [
             'latitude' => $lat,
@@ -43,18 +43,20 @@ class WeatherService
 
     /**
      * @param array $response
-     * @return array
+     * @return float
      */
-    private function parseWeatherInfo(array $response): array
+    private function parseWeatherInfo(array $response): float
     {
         $weather = WeatherEnum::tryFrom($response['current_weather']['weathercode']);
         if($weather !== null) {
             $weather = WeatherEnum::toCzech($weather);
         }
 
-        return [
-            (float) $response['current_weather']['temperature']
-        ];
+        return (float) $response['current_weather']['temperature'];
+
+//        return [
+//            (float) $response['current_weather']['temperature']
+//        ];
 
 //        return [
 //            'measured_at' => CarbonImmutable::parse($response['current_weather']['time'])->format('Y-m-d H:i:s'),
