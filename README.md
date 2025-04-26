@@ -27,6 +27,7 @@ In order to achieve required behaviour, those third-party tools were used:
 3. Run `composer i` in order to install laravel and related packages.
 4. Run `php artisan key:generate` in order to generate an application key.
 5. Run `php artisan serve` in order to run the application. You will be provided with information about where the project is running (*default: http://127.0.0.1:8000*).
+6. The project will run on `/api/service/` endpoint. 
 
 
 ## Hosted app
