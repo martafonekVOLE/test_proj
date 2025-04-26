@@ -8,7 +8,7 @@ use Illuminate\Http\Client\Factory;
 
 class StockService
 {
-    private const API_URL = "https://yahoo-finance15.p.rapidapi.com/api/v1/markets/quote?ticker=%s";
+    private const API_URL = "https://yahoo-finance15.p.rapidapi.com/api/v1/markets/stock/modules?ticker=%s&module=financial-data";
 
     /**
      * @param \Illuminate\Http\Client\Factory $factory
@@ -28,13 +28,16 @@ class StockService
     {
         $url = sprintf(self::API_URL, $ticker, env('ALPHA_VANTAGE_API_KEY'));
 
-        $response = $this->factory->get($url);
-dd($response->json());
+        $response = $this->factory->withHeaders([
+            'x-rapidapi-host' => 'yahoo-finance15.p.rapidapi.com',
+            'x-rapidapi-key' => env('RAPID_API_KEY'),
+        ])->get($url);
+
         if($response->failed()) {
             throw new \Exception('Unable to retrieve stock price: ' . $ticker);
         }
 
-        return $this->parseStockPrice($response->json()['Global Quote']);
+        return $this->parseStockPrice($response->json()['body']);
     }
 
     /**
@@ -43,8 +46,7 @@ dd($response->json());
      */
     private function parseStockPrice(array $response): float
     {
-
-        return (float) $response['05. price'];
+        return (float) $response['currentPrice']['raw'];
 
 //        return [
 //            'ticker' => $response['01. symbol'],
